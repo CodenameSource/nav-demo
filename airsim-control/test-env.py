@@ -30,7 +30,8 @@ env = DummyVecEnv(
                 image_shape=(84, 84, 1),
                 start_position=start_pos,
                 target_position=end_pos,
-                velocity=1,
+                travel_velocity=1,
+                correction_velocity=0.5,
                 time_limit=300,
             )
         )
@@ -40,7 +41,7 @@ env = DummyVecEnv(
 env = VecTransposeImage(env)
 
 model = DQN(
-    "CnnPolicy",
+    "MultiInputPolicy",
     env,
     learning_rate=0.00025,
     verbose=1,

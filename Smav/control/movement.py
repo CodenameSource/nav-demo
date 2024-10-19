@@ -37,11 +37,9 @@ def land(master, lat, lon, altitude):  # TODO add pitch and the other arguments 
     )
 
 
-def goto(master, lat: int, lon: int, altitude: int, hold_time: int = 2, near_threshold_meters: float = 1.5):  # TODO add pitch and the other arguments for mavlink
+def goto(master, lat: int, lon: int, altitude: int, yaw_angle: int = 0, hold_time: int = 2, near_threshold_meters: float = 1.5):  # TODO add pitch and the other arguments for mavlink
     # TODO add arguments as parameters above
-    cont = 3
     coordinate_frame = 0
-    yaw_angle = 0
     # lat_int = c_int32(int(lat * 1e7)).value
     # lon_int = c_int32(int(lon * 1e7)).value
     #master.mav.command_long_send(
@@ -76,8 +74,9 @@ def goto(master, lat: int, lon: int, altitude: int, hold_time: int = 2, near_thr
 
         print("Distance to waypoint: ", distance_to_waypoint)
 
-        sleep(2)
+        sleep(1)
 
     sleep(hold_time)
+    return True
 
 

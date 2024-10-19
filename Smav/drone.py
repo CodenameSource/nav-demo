@@ -50,8 +50,41 @@ class Drone:
 
         land(self.master, lat, lon, landing_alt)
 
-    def goto(self, waypoint: Waypoint):
-        goto(self.master, waypoint.lat, waypoint.lon, waypoint.alt)
+    def goto(self, waypoint: Waypoint, hold_time: int = 2, near_threshold_meters: float = 1.5) -> bool:
+        """Go to a waypoint.
+
+        Args:
+                waypoint (Waypoint): The waypoint to go to.
+                hold_time (int, optional): The time to hold at the waypoint. Defaults to 2.
+                near_threshold_meters (float, optional): The distance to the waypoint to consider as "near". Defaults to 1.5.
+        Returns:
+                bool: True if the drone reached the waypoint, False otherwise.
+        """
+        try:
+            return goto(self.master, waypoint.lat, waypoint.lon, waypoint.alt, waypoint.hdg, hold_time, near_threshold_meters)
+        except Exception as e:
+            print(e)
+            return False
 
     def get_location(self):
+        return get_location(self.master)
+
+    @property
+    def heading(self):
+        return get_location(self.master)['hdg']
+
+    @property
+    def location(self) -> dict:
+        """Return the current location of the drone.
+
+
+        Returns:
+                dict: A dictionary containing the following keys:
+
+                - lat (float): The latitude of the drone.
+                - lon (float): The longitude of the drone.
+                - alt (float): The altitude of the drone.
+                - relative_alt (float): The relative altitude of the drone.
+                - hdg (float): The heading of the drone.
+        """
         return get_location(self.master)

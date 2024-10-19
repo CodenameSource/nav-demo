@@ -54,7 +54,7 @@ def visualise_img(img):
     cv2.waitKey(0)
     cv2.destroyAllWindows()
 
-ip = "127.0.0.1"
+ip = "192.168.10.141"
 
 
 sleep(2)
